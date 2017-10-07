@@ -11,14 +11,19 @@ env.currentYear = (new Date()).getFullYear();
 env.code = {}; // used to store highlighted code
 
 function highlight() {
-    return gulp.src(['src/includes/code/*/*.*'], { since: gulp.lastRun(highlight) })
+    return gulp.src(['src/includes/hljs/*.*'], { since: gulp.lastRun(highlight) })
         .pipe(through.obj((file, enc, cb) => {
+            console.log('lol');
             const filename = file.path.split('/').pop();
-            const ext = filename.split('.').splice(1).pop();
-            const hlobj = hljs.highlight(ext, file.contents.toString('utf8'), false);
+            const lang = filename.split('.').splice(1).pop();
+            const hlobj = hljs.highlight(lang, file.contents.toString('utf8'), false);
             env.code[filename] = hlobj.value;
+            file.contents = Buffer.from(hlobj.value);
+            file.path += '.html';
             cb(null, file);
-        }));
+        }))
+        .pipe(gulp.dest('www/code'))
+        .pipe(connect.reload());
 }
 
 function less() {
@@ -49,11 +54,14 @@ function webserver() {
 
 let includes;
 function loadIncludes(done) {
-    includes = new nunjucks.FileSystemLoader(['src/includes/']);
+    includes = new nunjucks.FileSystemLoader([
+        'src/img',
+        'src/includes',
+        'src/includes/code']);
     done();
 }
 
-const pages = ['/index', '/payment-link', '/subscriptions', '/synchronization',
+const pages = ['/index', '/payment-link', '/synchronization',
     '/acquiring-banks', '/ecommerce-modules', '/API-libraries', '/security'];
 
 function index() {
@@ -90,7 +98,7 @@ function html() {
     const nenv = new nunjucks.Environment(includes, {});
     nenv.addFilter('settitle', str => str);
     nenv.addFilter('setlabel', str => str);
-    nenv.addGlobal('addsublist', () => {});
+    nenv.addGlobal('addsublist', () => '');
 
     return gulp.src('src/*.html').pipe(through.obj((file, enc, cb) => {
         env.filename = file.path.substring(file.path.lastIndexOf('/') + 1);
@@ -112,7 +120,7 @@ function css() {
 }
 
 function assets() {
-    return gulp.src(['src/font/*.*', 'src/js/**'])
+    return gulp.src(['src/font/*.*', 'src/js/**', 'src/includes/code/**'])
         .pipe(gulp.dest('www/a/'))
         .pipe(connect.reload());
 }

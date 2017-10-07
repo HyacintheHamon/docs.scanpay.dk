@@ -20,7 +20,6 @@ function setProgrammingLanguage(btn, parent) {
     parent.getElementsByClassName(lang)[0].classList.add('code--active');
 }
 
-
 /*
     Very simple fetch polyfill (for Safari < 10.1)
 */
@@ -100,7 +99,36 @@ function selectAll() {
 }
 
 
+const postman = {
+    'paymentLink': () => {
+        fetch('https://docs.scanpay.dk/_v1/new', {
+            method: 'POST',
+            body: JSON.stringify({
+                items: [{
+                    name: 'test',
+                    quantity: 2,
+                    price: '79.95 DKK'
+                }]
+            })
+        }).then(res => res.json().then((o) => {
+            if (confirm('You just created a payment link on our test environment. ' +
+                'Do you want to check it out? ' + o.url)) {
+                window.location.href = o.url;
+            }
+        }).catch(() => {
+            alert('Sorry. The test environment is offline. Try again later.');
+        }));
+    }
+};
+
+
 (() => {
+    // Attach events to "run code" buttons
+    const postmans = document.getElementsByClassName('postman');
+    for (let i = 0; i < postmans.length; i++) {
+        postmans[i].addEventListener('click', postman[postmans[i].dataset.fn]);
+    }
+
     // Code blocks (examples)
     const blocks = document.getElementsByClassName('code--');
     for (let i = 0; i < blocks.length; i++) {

@@ -2,7 +2,7 @@
 {% set title = "Security" | settitle %}
 {% block meta %}
 <title>Security - Scanpay</title>
-<meta name="description" content="Scanpay is PCI-DSS certified and security is very important to us.">
+<meta name="description" content="Scanpay is PCI DSS certified and security is very important to us.">
 {% endblock %}
 
 {% block article %}
@@ -11,14 +11,20 @@
     Security is very important to us. If you have any security concerns or issues, please disclose this information directly to <a href="mailto:security@scanpay.dk">security@scanpay.dk</a>. Please do not disclose security issues publicly until they have been handled by the security team.
   </p>
 
-  {{ h(2, "PCI DSS", "") }}
+  {{ h(2, "Basic authentication", "") }}
   <p>
-    Scanpay is <a href="//en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard">PCI DSS</a> certified. The PCI standard enforces strict requirements for the handling of credit card data to secure the end user.
+    We support Basic authentication with API keys as credentials. All your API requests must include an <code class="code">authorization</code> header with your base64-encoded API key. Like this:
+
+    <code class="pcode"><span class="hljs-attr">Authorization</span>: <span class="hljs-string">"Basic "</span> + <span class="hljs-built_in">base64_encode(</span>apikey<span class="hljs-built_in">)</span></code>
   </p>
 
   {{ h(2, "Transport Layer Security", "") }}
   <p>
-    We use Elliptic Curve Cryptography (ECC), SHA-2 certificates and Transport Layer Security version 1.2 (TLSv1.2). Below is a list of ciphers we can currently guarantee support for.
+    For security reasons, we only support Transport Layer Security version 1.2 (TLSv1.2).
+
+    use Elliptic Curve Cryptography (ECC), SHA-2 certificates.
+
+     Below is a list of ciphers we can currently guarantee support for.
   </p>
 
   <table>
@@ -62,4 +68,13 @@
       </tr>
     </tbody>
   </table>
+
+  {{ h(2, "PCI DSS", "") }}
+  <p>
+    Scanpay is <a href="//en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard">PCI DSS</a> certified. The PCI standard enforces strict requirements for the handling of credit card data to secure the end user.
+  </p>
+
+
 {% endblock %}
+
+

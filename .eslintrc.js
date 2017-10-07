@@ -174,6 +174,7 @@ module.exports = {
         "no-throw-literal": 0,
         "no-trailing-spaces": 2,
         "no-undef-init": 2,
+        "no-unused-vars": 1,
         "no-undefined": 2,
         "no-unmodified-loop-condition": 2,
         "no-unneeded-ternary": 2,

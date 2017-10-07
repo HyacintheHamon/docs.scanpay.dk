@@ -86,10 +86,11 @@ ping := <span class="hljs-built_in">jsondecode</span>(body)
     </thead>
     <tbody>
       <tr>
-        <td class="paylink--tcode paylink--auth field--required"><pre><span class="type--name">Authorization</span>: <span class="type--str">Basic MTI5Ok5vRkJNZy9Q...</span>
-<small class="type--small arr--upr">'Basic ' + base64 encoded API key</small></pre></td>
+        <td class="paylink--tcode field--required">
+          <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
+        </td>
         <td>
-          HTTP basic authentication with your base64 encoded API key. This is a required header.
+          HTTP Basic authentication. <a href="/security#basic-authentication">Read more</a>.
         </td>
       </tr>
     </tbody>
@@ -112,7 +113,7 @@ ping := <span class="hljs-built_in">jsondecode</span>(body)
         <td>The seq of the last change in this response. This is your new <em>$localseq</em>, but not necessarily your global seq counter.</td>
       </tr>
       <tr>
-        <td class="paylink--tcode"><pre>{% include "JSON/seq_changes.html" %}</pre></td>
+        <td class="paylink--tcode"><pre>{% include "seq_changes.html" %}</pre></td>
         <td class="td--vtop">
           An array with zero or more changes since the requested seq, but not necessarily all changes.
 
@@ -141,7 +142,7 @@ ping := <span class="hljs-built_in">jsondecode</span>(body)
         <b>continue</b>
     <b>end</b>
 
-{% include "pseudocode/seq-mssql.code" %}{% include "pseudocode/seq-mysql.code" %}{% include "pseudocode/seq-generic.code" %}
+{% include "seq-mssql.html" %}{% include "seq-mysql.html" %}{% include "seq-generic.html" %}
 <b>end</b>
 
 <span class="hljs-built_in mysql">MySQL</span><span class="hljs-built_in postgresql">PostgreSQL</span><span class="hljs-built_in mssql">MSSQL</span><span class="mysql postgresql mssql">(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq' <span class="hljs-keyword">WHERE</span> seq &lt; 'data.seq')</span><span class="generic"><span class="hljs-built_in">atomic-transaction</span>(

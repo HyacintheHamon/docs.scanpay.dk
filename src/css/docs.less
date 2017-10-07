@@ -75,7 +75,7 @@ h1, h2, h3, h4 {
 
 h1 {
     font-size: 1.8em;
-    margin: 1.4em 0 .85em;
+    margin: 1.4em 0 .8em;
 }
 
 h2 {
@@ -329,7 +329,7 @@ small {
 
 .bashcmd, .pcode, .example {
     display: block;
-    padding: 8px 3px 8px 9px;
+    padding: 8px;
     font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
     color: #252525;
     background: #f9f9f9;
@@ -350,6 +350,7 @@ small {
 }
 
 .pcode {
+    position: relative;
     margin: 21px 0;
     border-radius: 3px;
     border: 1px solid #dcdcdc;
@@ -362,6 +363,12 @@ small {
     border: solid 1px #e1e4e5;
     padding: 0 4px;
     border-radius: 3px;
+}
+
+.authheader {
+    display: block;
+    max-width: 480px;
+    margin-bottom: -1em;
 }
 
 
@@ -394,7 +401,11 @@ small {
     font-size: 13px;
     padding-left: 13px;
     font-family: DejaVu Sans Mono, Consolas, monospace;
+    color: #444;
     word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     > pre {
         background: none;
@@ -404,6 +415,13 @@ small {
         margin: 0;
     }
 }
+
+.nobr {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+}
+
 
 button {
     background: none;
@@ -425,6 +443,21 @@ button {
         padding: 0; // Remove inner padding and border in Firefox 4+ (normalize)
     }
 }
+
+.postman {
+    border-radius: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    font: 600 12px / normal 'O', sans-serif;
+    padding: 0 7px;
+    background: #f4f4f4 linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .08));
+    border: 1px solid #b5c0cb;
+    color: #333;
+}
+
+
 
 
 .header--auth {
@@ -666,7 +699,7 @@ td {
 }
 
 .fsize15 {
-    font-size: 15px
+    font-size: 15px;
 }
 
 

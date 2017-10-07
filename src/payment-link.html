@@ -9,23 +9,22 @@
 {% block article %}
   <h1>Payment Link</h1>
   <p>
-    Use this API to generate links to the payment window. This API is designed to be fault-tolerant and forgiving. Here is some pseudocode to show how simple it is:
+    Use this API to generate payment links. This API is designed to be fault-tolerant and forgiving. Here is some pseudocode to show how simple it is:
   </p>
 
 <pre><code class="pcode"><span class="hljs-built_in">POST</span> https://api.scanpay.dk/v1/new
-<span class="hljs-attribute">Authorization</span>: Basic MTI5Ok5vRkJNZy9Q133DJjaJ=
+<div class="nobr authheader"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</div>
 {
     <span class="hljs-attr">"items"</span>: [
         {
-            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Monty Python and the Holy Grail (Blu-ray)"</span>,
             <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">2</span>,
             <span class="hljs-attr">"price"</span>: <span class="hljs-string">"79.95 DKK"</span>  <span class="hljs-comment">// total is 159.9 DKK</span>
         }
     ]
 }
-</code></pre>
+<button class="postman" data-fn="paymentLink">run code</button></code></pre>
 
-The more information you include the better we can protect your business against fraud.
+This is the absolute minimum you can send to create a payment link. The more information you include the better we can protect your business against fraud.
 
   {{ h(3, "Request Headers", "") }}
   The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code>
@@ -39,10 +38,10 @@ The more information you include the better we can protect your business against
     <tbody>
       <tr>
         <td class="paylink--tcode field--required">
-          <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTI5Ok5vRkJNZy9Q133DJ&hellip;</span>
+          <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
         </td>
         <td>
-          HTTP basic authentication. <a href="#">Read more</a>.
+          HTTP Basic authentication. <a href="/security#basic-authentication">Read more</a>.
         </td>
       </tr>
       <tr>
@@ -85,7 +84,7 @@ The more information you include the better we can protect your business against
         </td>
       </tr>
       <tr>
-        <td class="paylink--tcode field--required"><pre>{% include "JSON/items.html" %}</pre></td>
+        <td class="paylink--tcode field--required"><pre>{% include "items.html" %}</pre></td>
         <td class="td--desc">
           An array with items.
           <ul class="table--ul">
@@ -98,7 +97,7 @@ The more information you include the better we can protect your business against
         </td>
       </tr>
       <tr>
-        <td class="paylink--tcode"><pre>{% include "JSON/billing.html" %}</pre></td>
+        <td class="paylink--tcode"><pre>{% include "billing.html" %}</pre></td>
         <td class="td--desc td--vtop">
           Customer billing and shipping address.
           <ul class="table--ul">
@@ -148,11 +147,11 @@ The more information you include the better we can protect your business against
     <button class="code--btn--active">curl</button>
     <button>PHP</button>
     <button>NodeJS</button>
-    <pre class="curl code--active"><code class="example">curl https://api.scanpay.dk/v1/new \
-  -u <span class="type--str">'Your scanpay API key'</span> \
-  --data-binary '{{ code['paylink_bash.json']|safe }}'</code></pre>
-      <pre class="php"><code class="example">{{ code['paylink.php']|safe }}</code></pre>
-      <pre class="nodejs"><code class="example">{{ code['paylink.js']|safe }}</code></pre>
+    <button>Go</button>
+    <button>Ruby</button>
+    <button>.NET</button>
+
+    <pre class="code--active"><code class="example">{% include "paylink.curl.html" %}</code></pre>
   </div>
 
 {% endblock %}
